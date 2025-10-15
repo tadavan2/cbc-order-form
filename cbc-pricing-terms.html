@@ -194,6 +194,101 @@
                 box-shadow: none;
             }
         }
+        
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .document-container {
+                padding: 20px;
+                margin: 0;
+                border-radius: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo {
+                max-width: 150px;
+            }
+            
+            .header-content h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            h2 {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+            
+            h3 {
+                font-size: 14px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+            
+            .pricing-table {
+                font-size: 12px;
+            }
+            
+            .pricing-table th,
+            .pricing-table td {
+                padding: 8px 6px;
+            }
+            
+            .highlight-box,
+            .warning-box {
+                padding: 12px;
+                margin: 15px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .document-container {
+                padding: 15px;
+            }
+            
+            .header-content h1 {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+            }
+            
+            h2 {
+                font-size: 15px;
+                padding: 6px 10px;
+            }
+            
+            p {
+                font-size: 13px;
+            }
+            
+            .pricing-table {
+                font-size: 11px;
+            }
+            
+            .pricing-table th,
+            .pricing-table td {
+                padding: 6px 4px;
+            }
+        }
     </style>
 </head>
 <body>
