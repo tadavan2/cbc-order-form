@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Berry Cultivars - Order Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5 url('orderform_bg.png') no-repeat center center;
+            background-size: cover;
+        }
+        
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #8B0000;
+            padding-bottom: 20px;
+            gap: 30px;
+        }
+        
+        .logo {
+            max-width: 200px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #8B0000;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            background: #8B0000;
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .order-table th {
+            background: #f0f0f0;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .order-table td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        .order-table input,
+        .order-table select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        
+        .add-row-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        .add-row-btn:hover {
+            background: #45a049;
+        }
+        
+        .delivery-options {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .delivery-options label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .delivery-options input[type="radio"] {
+            margin-right: 8px;
+            margin-bottom: 0;
+        }
+        
+        .totals-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 2px solid #8B0000;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .total-row.grand {
+            font-weight: bold;
+            font-size: 16px;
+            border-top: 2px solid #8B0000;
+            padding-top: 12px;
+            margin-top: 8px;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .payment-terms {
+            background: #fffbf0;
+            border: 1px solid #daa520;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+        
+        .payment-terms strong {
+            color: #8B0000;
+            font-size: 13px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-print {
+            background: #8B0000;
+            color: white;
+        }
+        
+        .btn-print:hover {
+            background: #660000;
+        }
+        
+        .btn-email {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-email:hover {
+            background: #45a049;
+        }
+        
+        .phyto-notice {
+            background: #fff3cd;
+            border: 2px solid #ff9800;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            color: #856404;
+            font-weight: bold;
+            font-size: 13px;
+            display: none;
+        }
+        
+        /* Email Confirmation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .modal-header {
+            color: #8B0000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-body {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        
+        .modal-instructions {
+            background: #f8f9fa;
+            border-left: 4px solid #8B0000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        
+        .modal-instructions h4 {
+            color: #8B0000;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .modal-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .modal-instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .modal-btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn.confirm {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .modal-btn.confirm:hover {
+            background: #45a049;
+        }
+        
+        .modal-btn.cancel {
+            background: #f44336;
+            color: white;
+        }
+        
+        .modal-btn.cancel:hover {
+            background: #da190b;
+        }
+        
+        .shipping-contact {
+            display: none;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .form-container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            .add-row-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <img src="Red_Hzl_TM_logo.png" alt="California Berry Cultivars Logo" class="logo">
+            <div class="header-content">
+                <h1 style="color: #8B0000; margin: 10px 0;">Order Form</h1>
+                <div class="subtitle">Strawberry Nursery Stock — CLEAN FACILITY</div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="action-btn btn-print" onclick="printToPDF()">📄 Save as PDF</button>
+            <button type="button" class="action-btn btn-email" onclick="emailForm()">📧 Email This Order</button>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Customer Information</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company / Ranch:</label>
+                    <input type="text" id="company" name="company">
+                </div>
+            </div>
+            <div class="form-row full">
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Order Details</div>
+            <button type="button" class="add-row-btn" onclick="addOrderRow()">+ Add Line Item</button>
+            <table class="order-table" id="orderTable">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Variety</th>
+                        <th style="width: 18%;">Plant Type</th>
+                        <th style="width: 12%;">Quantity</th>
+                        <th style="width: 15%;">Price Each</th>
+                        <th style="width: 15%;">Line Total</th>
+                        <th style="width: 8%;"></th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <tr class="order-row">
+                        <td>
+                            <select class="variety">
+                                <option value="">Select variety...</option>
+                                <option value="Adelanto">Adelanto</option>
+                                <option value="Alturas">Alturas</option>
+                                <option value="Artesia">Artesia</option>
+                                <option value="Alhambra">Alhambra</option>
+                                <option value="Belvedere">Belvedere</option>
+                                <option value="Brisbane">Brisbane</option>
+                                <option value="Castaic">Castaic</option>
+                                <option value="Carpinteria">Carpinteria</option>
+                                <option value="Sweet Carolina">Sweet Carolina</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="plant-type" onchange="updateQuantityOptions(this)">
+                                <option value="">Select type...</option>
+                                <option value="meristem_tube">Meristem Tube</option>
+                                <option value="acclimated_pot">Acclimated Meristem Pot</option>
+                                <option value="bin_stock">Certified Bin Stock</option>
+                                <option value="white_tag">White Tag Foundation Stock</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="quantity" onchange="calculateRow(this)" disabled>
+                                <option value="">-</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="price" readonly style="background: #f5f5f5;"></td>
+                        <td><input type="text" class="total" readonly style="background: #f5f5f5;"></td>
+                        <td><button type="button" onclick="removeRow(this)" style="padding: 4px 8px; font-size: 12px;">✕</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Delivery Options</div>
+            <div class="delivery-options">
+                <label>
+                    <input type="radio" name="delivery" value="pickup" checked onchange="toggleShipping()">
+                    Pickup
+                </label>
+                <label>
+                    <input type="radio" name="delivery" value="ship" onchange="toggleShipping()">
+                    Ship to Address
+                </label>
+            </div>
+            
+            <div class="shipping-contact" id="shippingSection">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ship-name">Contact Name:</label>
+                        <input type="text" id="ship-name" name="ship-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-company">Company:</label>
+                        <input type="text" id="ship-company" name="ship-company">
+                    </div>
+                </div>
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="ship-address">Street Address:</label>
+                        <textarea id="ship-address" name="ship-address" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ship-email">Email:</label>
+                        <input type="email" id="ship-email" name="ship-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-phone">Phone:</label>
+                        <input type="tel" id="ship-phone" name="ship-phone">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ship-country">Country:</label>
+                        <select id="ship-country" onchange="checkPhytoRequirement()">
+                            <option value="USA">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Australia">Australia</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="phyto-notice" id="phytoNotice">
+                    ⚠️ INTERNATIONAL SHIPMENT: Phytosanitary certificate required for shipments outside the USA. Additional phytosanitary documentation charges will apply per certificate issued.
+                </div>
+            </div>
+            
+            <div class="form-row" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label for="shipping-charges">Shipping & Documentation Charges:</label>
+                    <input type="number" id="shipping-charges" step="0.01" min="0" onchange="calculateGrandTotal()">
+                    <small id="shipping-help" style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                        💡 Leave as $0 for pickup orders. For shipping, estimate or we'll calculate final charges.
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="totals-section">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="total-row">
+                <span>Shipping & Documentation:</span>
+                <span id="shipping-display">$0.00</span>
+            </div>
+            <div class="total-row grand">
+                <span>Grand Total:</span>
+                <span id="grand-total">$0.00</span>
+            </div>
+        </div>
+        
+        <div class="section" style="margin-top: 40px;">
+            <div class="section-title">Notes / Special Instructions</div>
+            <div class="form-row full">
+                <div class="form-group">
+                    <textarea id="notes" name="notes" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="signature-section">
+            <div class="form-group">
+                <label for="signature">Authorized Signature:</label>
+                <input type="text" id="signature" name="signature">
+                <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                    By typing your name above, you are electronically signing this order form.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
+            </div>
+        </div>
+        
+        <div class="payment-terms">
+            <strong>ORDER TERMS & CONDITIONS</strong><br><br>
+            
+            <strong>Pricing:</strong> All prices listed on this order form are estimates based on current pricing schedules. Final pricing and payment terms will be confirmed on the official invoice issued by California Berry Cultivars, LLC. Prices may be adjusted based on customer-specific agreements, order volume, or market conditions.<br><br>
+            
+            <strong>Standard Payment Terms:</strong> CBC's typical payment structure for nursery stock orders is as follows: (i) 25% deposit due within 30 days of invoice; (ii) 50% due prior to shipment; and (iii) 25% balance due within 30 days of delivery. Your specific payment terms will be detailed on your invoice.<br><br>
+            
+            <strong>International Orders:</strong> International shipments require phytosanitary certification. Pre-shipment payment must be received prior to release of phytosanitary certificates and export documentation. Customer is responsible for all import duties, taxes, permits, and customs clearance fees in the destination country.<br><br>
+            
+            <strong>Confirmation Process:</strong> This order form serves as a preliminary order request. A formal invoice will be issued by CBC's accounting department confirming final quantities, pricing, delivery schedule, and payment terms. The invoice constitutes the binding agreement between CBC and Customer.<br><br>
+            
+            <strong>Lead Time:</strong> Most orders require 6-12 months lead time for production and delivery. Specific delivery dates will be confirmed on your invoice.<br><br>
+            
+            By signing below, Customer acknowledges this order request and understands that final terms will be provided on the official invoice from California Berry Cultivars, LLC.
+        </div>
+    </div>
+    
+    <!-- Email Confirmation Modal -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">📧 Ready to Send Your Order?</div>
+            <div class="modal-body">
+                Your order form will open in your email client with all the details filled in. Please follow these steps to complete your order:
+                
+                <div class="modal-instructions">
+                    <h4>📋 Next Steps:</h4>
+                    <ol>
+                        <li><strong>Save as PDF:</strong> Use the "Save as PDF" button below to create your PDF</li>
+                        <li><strong>Open Email:</strong> Click "Open Email" to launch your email client</li>
+                        <li><strong>Attach PDF:</strong> Drag your saved PDF into the email that opens</li>
+                        <li><strong>Review & Send:</strong> Review the email details and send to CBC</li>
+                    </ol>
+                </div>
+                
+                <p><strong>Note:</strong> Your email will be pre-addressed to CBC's order processing team.</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeEmailModal()">Cancel</button>
+                <button class="modal-btn" onclick="printToPDF()" style="background: #8B0000; color: white;">📄 Save as PDF</button>
+                <button class="modal-btn confirm" onclick="confirmEmailOrder()">📧 Open Email</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Set today's date by default
+        document.getElementById('date').valueAsDate = new Date();
+        
+        // Pricing structure
+        const PRICING = {
+            meristem_tube: { base: 500, per: 'unit' },
+            acclimated_pot: { base: 750, per: 'unit' },
+            bin_stock: { base: 10.00, per: 'runner' },
+            white_tag: { base: 4000, per: 'plot', halfPlot: 3000 }
+        };
+        
+        function toggleShipping() {
+            const isShip = document.querySelector('input[name="delivery"]:checked').value === 'ship';
+            document.getElementById('shippingSection').style.display = isShip ? 'block' : 'none';
+            
+            // Update shipping help text based on delivery method
+            const shippingHelp = document.getElementById('shipping-help');
+            if (isShip) {
+                shippingHelp.textContent = '💡 Estimate shipping costs or leave blank - we\'ll calculate final charges based on destination and weight.';
+            } else {
+                shippingHelp.textContent = '💡 Leave as $0 for pickup orders.';
+            }
+            
+            if (isShip) {
+                checkPhytoRequirement();
+            } else {
+                document.getElementById('phytoNotice').style.display = 'none';
+            }
+        }
+        
+        function checkPhytoRequirement() {
+            const country = document.getElementById('ship-country').value;
+            const notice = document.getElementById('phytoNotice');
+            notice.style.display = (country !== 'USA') ? 'block' : 'none';
+        }
+        
+        function updateQuantityOptions(selectElement) {
+            const row = selectElement.closest('tr');
+            const plantType = selectElement.value;
+            const quantitySelect = row.querySelector('.quantity');
+            
+            // Clear existing options
+            quantitySelect.innerHTML = '<option value="">Select quantity</option>';
+            quantitySelect.disabled = !plantType;
+            
+            if (!plantType) return;
+            
+            let options = [];
+            
+            switch(plantType) {
+                case 'meristem_tube':
+                case 'acclimated_pot':
+                    // 2-50, with "2 - Minimum" as first option
+                    options.push({value: 2, text: '2 - Minimum'});
+                    for (let i = 3; i <= 50; i++) {
+                        options.push({value: i, text: i});
+                    }
+                    quantitySelect.value = '2';
+                    break;
+                    
+                case 'bin_stock':
+                    // Sets of 50 up to 1000
+                    for (let i = 50; i <= 1000; i += 50) {
+                        options.push({value: i, text: i});
+                    }
+                    break;
+                    
+                case 'white_tag':
+                    // Plots: 0.5, 1, 2, 3, 4, 5, 6 with "plot" suffix
+                    options = [
+                        {value: 0.5, text: '0.5 plot'},
+                        {value: 1, text: '1 plot'},
+                        {value: 2, text: '2 plots'},
+                        {value: 3, text: '3 plots'},
+                        {value: 4, text: '4 plots'},
+                        {value: 5, text: '5 plots'},
+                        {value: 6, text: '6 plots'}
+                    ];
+                    break;
+            }
+            
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.text;
+                quantitySelect.appendChild(option);
+            });
+            
+            // Set default for meristem types
+            if (plantType === 'meristem_tube' || plantType === 'acclimated_pot') {
+                quantitySelect.value = '2';
+                calculateRow(quantitySelect);
+            }
+        }
+        
+        function calculateRow(element) {
+            const row = element.closest('tr');
+            const plantType = row.querySelector('.plant-type').value;
+            const quantity = parseFloat(row.querySelector('.quantity').value);
+            
+            if (!plantType || !quantity) {
+                row.querySelector('.price').value = '';
+                row.querySelector('.total').value = '';
+                calculateGrandTotal();
+                return;
+            }
+            
+            let priceEach = 0;
+            let total = 0;
+            
+            switch(plantType) {
+                case 'meristem_tube':
+                    priceEach = PRICING.meristem_tube.base;
+                    total = priceEach * quantity;
+                    break;
+                    
+                case 'acclimated_pot':
+                    priceEach = PRICING.acclimated_pot.base;
+                    total = priceEach * quantity;
+                    break;
+                    
+                case 'bin_stock':
+                    // $7.50 per runner, sold in sets of 50
+                    priceEach = PRICING.bin_stock.base * 50;
+                    total = priceEach * (quantity / 50);
+                    break;
+                    
+                case 'white_tag':
+                    if (quantity === 0.5) {
+                        priceEach = PRICING.white_tag.halfPlot;
+                        total = priceEach;
+                    } else {
+                        priceEach = PRICING.white_tag.base;
+                        total = priceEach * quantity;
+                    }
+                    break;
+            }
+            
+            row.querySelector('.price').value = '$' + priceEach.toFixed(2);
+            row.querySelector('.total').value = '$' + total.toFixed(2);
+            
+            calculateGrandTotal();
+        }
+        
+        function calculateGrandTotal() {
+            let subtotal = 0;
+            document.querySelectorAll('.order-row').forEach(row => {
+                const totalText = row.querySelector('.total').value;
+                if (totalText) {
+                    const total = parseFloat(totalText.replace('$', '')) || 0;
+                    subtotal += total;
+                }
+            });
+            
+            const shipping = parseFloat(document.getElementById('shipping-charges').value) || 0;
+            const grandTotal = subtotal + shipping;
+            
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('shipping-display').textContent = '$' + shipping.toFixed(2);
+            document.getElementById('grand-total').textContent = '$' + grandTotal.toFixed(2);
+        }
+        
+        function addOrderRow() {
+            const tbody = document.getElementById('orderTableBody');
+            const newRow = tbody.rows[0].cloneNode(true);
+            
+            // Reset all selects and inputs
+            newRow.querySelectorAll('select').forEach(select => {
+                select.selectedIndex = 0;
+            });
+            
+            const quantitySelect = newRow.querySelector('.quantity');
+            quantitySelect.innerHTML = '<option value="">-</option>';
+            quantitySelect.disabled = true;
+            
+            newRow.querySelectorAll('input').forEach(input => {
+                input.value = '';
+            });
+            
+            tbody.appendChild(newRow);
+        }
+        
+        function removeRow(button) {
+            const tbody = document.getElementById('orderTableBody');
+            if (tbody.rows.length > 1) {
+                button.closest('tr').remove();
+                calculateGrandTotal();
+            } else {
+                alert('Cannot remove the last row. At least one line item is required.');
+            }
+        }
+        
+        function printToPDF() {
+            // Hide modal if it's open
+            const modal = document.getElementById('emailModal');
+            const wasModalOpen = modal.style.display === 'block';
+            if (wasModalOpen) {
+                modal.style.display = 'none';
+            }
+            
+            // Hide buttons before printing
+            document.querySelectorAll('.action-buttons, .add-row-btn').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            window.print();
+            
+            // Show buttons after printing
+            setTimeout(() => {
+                document.querySelectorAll('.action-buttons').forEach(el => {
+                    el.style.display = 'flex';
+                });
+                document.querySelectorAll('.add-row-btn').forEach(el => {
+                    el.style.display = 'inline-block';
+                });
+                
+                // Restore modal if it was open
+                if (wasModalOpen) {
+                    modal.style.display = 'block';
+                }
+            }, 100);
+        }
+        
+        function validateRequiredFields() {
+            const requiredFields = {
+                name: document.getElementById('name').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                signature: document.getElementById('signature').value.trim()
+            };
+            
+            // Check if at least one order item is filled
+            let hasOrderItems = false;
+            document.querySelectorAll('.order-row').forEach(row => {
+                const variety = row.querySelector('.variety').value;
+                const plantType = row.querySelector('.plant-type').value;
+                const quantity = row.querySelector('.quantity').value;
+                if (variety && plantType && quantity) {
+                    hasOrderItems = true;
+                }
+            });
+            
+            const missingFields = [];
+            if (!requiredFields.name) missingFields.push('Name');
+            if (!requiredFields.company) missingFields.push('Company/Ranch');
+            if (!requiredFields.email) missingFields.push('Email');
+            if (!requiredFields.phone) missingFields.push('Phone');
+            if (!requiredFields.signature) missingFields.push('Authorized Signature');
+            if (!hasOrderItems) missingFields.push('At least one order item');
+            
+            return {
+                isValid: missingFields.length === 0,
+                missingFields: missingFields
+            };
+        }
+        
+        function emailForm() {
+            // Validate required fields first
+            const validation = validateRequiredFields();
+            
+            if (!validation.isValid) {
+                const missingList = validation.missingFields.join(', ');
+                alert(`Please complete the following required fields before sending your order:\n\n${missingList}\n\nYou can still save as PDF with incomplete information.`);
+                return;
+            }
+            
+            // Show confirmation modal if validation passes
+            document.getElementById('emailModal').style.display = 'block';
+        }
+        
+        function closeEmailModal() {
+            document.getElementById('emailModal').style.display = 'none';
+        }
+        
+        function confirmEmailOrder() {
+            // Debug: Check if function is called
+            console.log('confirmEmailOrder called');
+            
+            // Gather form data for email body
+            const customerName = document.getElementById('name').value || '[Not filled]';
+            const company = document.getElementById('company').value || '[Not filled]';
+            const email = document.getElementById('email').value || '';
+            const phone = document.getElementById('phone').value || '';
+            const address = document.getElementById('address').value || '';
+            const grandTotal = document.getElementById('grand-total').textContent;
+            const subtotal = document.getElementById('subtotal').textContent;
+            const shippingDisplay = document.getElementById('shipping-display').textContent;
+            const notes = document.getElementById('notes').value || '';
+            const signature = document.getElementById('signature').value || '';
+            const date = document.getElementById('date').value || '';
+            
+            // Build order details table
+            let orderDetails = '';
+            document.querySelectorAll('.order-row').forEach(row => {
+                const variety = row.querySelector('.variety').value;
+                const plantType = row.querySelector('.plant-type').value;
+                const quantity = row.querySelector('.quantity').value;
+                const price = row.querySelector('.price').value;
+                const total = row.querySelector('.total').value;
+                
+                if (variety && plantType && quantity) {
+                    const typeText = row.querySelector('.plant-type').selectedOptions[0]?.text || plantType;
+                    const qtyText = row.querySelector('.quantity').selectedOptions[0]?.text || quantity;
+                    orderDetails += `• ${variety} - ${typeText} - Qty: ${qtyText} - ${price} each = ${total}\n`;
+                }
+            });
+            
+            // Check delivery method
+            const deliveryMethod = document.querySelector('input[name="delivery"]:checked').value;
+            const deliveryText = deliveryMethod === 'pickup' ? 'Pickup' : 'Ship to Address';
+            
+            const subject = `CBC Order Request - ${company} - ${grandTotal}`;
+            let body = `Dear CBC Order Processing Team,\n\n` +
+                        `Please find below our order request details:\n\n` +
+                        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                        `📋 ORDER SUMMARY\n` +
+                        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                        `👤 CUSTOMER INFORMATION:\n` +
+                        `• Name: ${customerName}\n` +
+                        `• Company/Ranch: ${company}\n` +
+                        `• Email: ${email}\n` +
+                        `• Phone: ${phone}\n` +
+                        `• Address: ${address}\n\n` +
+                        `📦 DELIVERY METHOD: ${deliveryText}\n\n` +
+                        `🛒 ORDER DETAILS:\n${orderDetails}\n` +
+                        `💰 TOTALS:\n` +
+                        `• Subtotal: ${subtotal}\n` +
+                        `• Shipping & Documentation: ${shippingDisplay}\n` +
+                        `• Grand Total: ${grandTotal}\n\n`;
+            
+            // Add notes and signature if provided
+            if (notes) {
+                body += `📝 NOTES/SPECIAL INSTRUCTIONS:\n${notes}\n\n`;
+            }
+            
+            if (signature || date) {
+                body += `✍️ AUTHORIZATION:\n`;
+                if (signature) body += `• Signature: ${signature}\n`;
+                if (date) body += `• Date: ${date}\n\n`;
+            }
+            
+            body += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                   `📎 Please see the attached PDF of the completed order form.\n\n` +
+                   `Thank you for your time. Please confirm receipt and provide any additional information needed.\n\n` +
+                   `Best regards,\n${customerName}\n${company}`;
+            
+            // Prepopulate recipients
+            const recipients = 'orders@cbcberry.com';
+            
+            // Open default email client with prepopulated recipients
+            const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Small delay to ensure modal doesn't interfere
+            setTimeout(() => {
+                window.location.href = mailtoLink;
+                // Close modal after email opens
+                closeEmailModal();
+            }, 100);
+        }
+    </script>
+</body>
+</html>
