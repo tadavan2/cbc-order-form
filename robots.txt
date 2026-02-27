@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://orders.cbcberry.com/sitemap.xml
