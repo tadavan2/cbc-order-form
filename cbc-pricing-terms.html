@@ -32,7 +32,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 40px;
-            background: #f5f5f5 url('orderform_bg.png') no-repeat center center;
+            background: #f5f5f5 url('orderform_bg.jpg') no-repeat center center;
             background-size: cover;
             line-height: 1.6;
         }
@@ -82,8 +82,14 @@
             transition: background 0.3s;
         }
         
-        .nav-link:hover {
+        .nav-link:hover,
+        .nav-link:focus-visible {
             background: #660000;
+        }
+
+        .nav-link:focus-visible {
+            outline: 3px solid #8B0000;
+            outline-offset: 2px;
         }
         
         h1 {
@@ -189,9 +195,13 @@
                 padding: 0;
                 background: white;
             }
-            
+
             .document-container {
                 box-shadow: none;
+            }
+
+            .nav-link {
+                display: none !important;
             }
         }
         
@@ -298,9 +308,9 @@
                 <img src="Red_Hzl_TM_logo.png" alt="California Berry Cultivars Logo" class="logo">
             </a>
             <div class="header-content">
-                <h1 style="color: #8B0000; margin: 10px 0;">Pricing & Terms</h1>
+                <h1>Pricing & Terms</h1>
                 <div class="subtitle">Strawberry Nursery Stock — CLEAN FACILITY</div>
-                <a href="index.html" style="display: inline-block; background: #8B0000; color: white; padding: 8px 16px; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: bold; margin-top: 10px; transition: background 0.3s;" onmouseover="this.style.background='#660000'" onmouseout="this.style.background='#8B0000'">📋 Place Order</a>
+                <a href="index.html" class="nav-link">📋 Place Order</a>
             </div>
         </div>
         
@@ -311,10 +321,10 @@
         <table class="pricing-table">
             <thead>
                 <tr>
-                    <th>Product Type</th>
-                    <th>Unit Price</th>
-                    <th>Minimum Order</th>
-                    <th>Description</th>
+                    <th scope="col">Product Type</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Minimum Order</th>
+                    <th scope="col">Description</th>
                 </tr>
             </thead>
             <tbody>
