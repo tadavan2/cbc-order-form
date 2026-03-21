@@ -33,7 +33,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 40px;
-            background: #f5f5f5 url('orderform_bg.png') no-repeat center center;
+            background: #f5f5f5 url('orderform_bg.jpg') no-repeat center center;
             background-size: cover;
         }
         
@@ -68,7 +68,30 @@
             flex: 1;
             text-align: center;
         }
-        
+
+        .nav-link {
+            display: inline-block;
+            background: #8B0000;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus-visible {
+            background: #660000;
+        }
+
+        .nav-link:focus-visible {
+            outline: 3px solid #8B0000;
+            outline-offset: 2px;
+        }
+
         .subtitle {
             color: #8B0000;
             font-size: 18px;
@@ -387,20 +410,29 @@
         .shipping-contact {
             display: none;
         }
-        
+
+        .field-error {
+            border-color: #d32f2f !important;
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+        }
+
         @media print {
             body {
                 padding: 0;
                 background: white;
             }
-            
+
             .form-container {
                 box-shadow: none;
                 padding: 20px;
             }
-            
-            .add-row-btn {
-                display: none;
+
+            .add-row-btn,
+            .action-buttons,
+            .modal,
+            .remove-btn,
+            .nav-link {
+                display: none !important;
             }
         }
         
@@ -522,7 +554,7 @@
             <div class="header-content">
                 <h1 style="color: #8B0000; margin: 10px 0;">Order Form</h1>
                 <div class="subtitle">Strawberry Nursery Stock — CLEAN FACILITY</div>
-                <a href="cbc-pricing-terms.html" style="display: inline-block; background: #8B0000; color: white; padding: 8px 16px; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: bold; margin-top: 10px; transition: background 0.3s;" onmouseover="this.style.background='#660000'" onmouseout="this.style.background='#8B0000'">📖 Pricing & Terms</a>
+                <a href="cbc-pricing-terms.html" class="nav-link">📖 Pricing & Terms</a>
             </div>
         </div>
         
@@ -536,17 +568,17 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" maxlength="100">
                 </div>
                 <div class="form-group">
                     <label for="company">Company / Ranch:</label>
-                    <input type="text" id="company" name="company">
+                    <input type="text" id="company" name="company" maxlength="100">
                 </div>
             </div>
             <div class="form-row full">
                 <div class="form-group">
-                    <label for="address">Address:</label>
-                    <textarea id="address" name="address" rows="2"></textarea>
+                    <label for="address">Billing / Mailing Address:</label>
+                    <textarea id="address" name="address" rows="2" maxlength="300"></textarea>
                 </div>
             </div>
             <div class="form-row">
@@ -567,18 +599,18 @@
             <table class="order-table" id="orderTable">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">Variety</th>
-                        <th style="width: 18%;">Plant Type</th>
-                        <th style="width: 12%;">Quantity</th>
-                        <th style="width: 15%;">Price Each</th>
-                        <th style="width: 15%;">Line Total</th>
-                        <th style="width: 8%;"></th>
+                        <th scope="col" style="width: 20%;">Variety</th>
+                        <th scope="col" style="width: 18%;">Plant Type</th>
+                        <th scope="col" style="width: 12%;">Quantity</th>
+                        <th scope="col" style="width: 15%;">Price Each</th>
+                        <th scope="col" style="width: 15%;">Line Total</th>
+                        <th scope="col" style="width: 8%;"></th>
                     </tr>
                 </thead>
                 <tbody id="orderTableBody">
                     <tr class="order-row">
                         <td>
-                            <select class="variety" onchange="toggleCustomVariety(this)">
+                            <select class="variety" aria-label="Variety" onchange="toggleCustomVariety(this)">
                                 <option value="">Select variety...</option>
                                 <option value="Adelanto">Adelanto</option>
                                 <option value="Alturas">Alturas</option>
@@ -594,7 +626,7 @@
                             <input type="text" class="variety-custom" placeholder="Enter selection name..." style="display: none; margin-top: 4px;">
                         </td>
                         <td>
-                            <select class="plant-type" onchange="updateQuantityOptions(this)">
+                            <select class="plant-type" aria-label="Plant Type" onchange="updateQuantityOptions(this)">
                                 <option value="">Select type...</option>
                                 <option value="meristem_tube">Meristem Tube</option>
                                 <option value="acclimated_pot">Acclimated Meristem Pot</option>
@@ -603,13 +635,13 @@
                             </select>
                         </td>
                         <td>
-                            <select class="quantity" onchange="calculateRow(this)" disabled>
+                            <select class="quantity" aria-label="Quantity" onchange="calculateRow(this)" disabled>
                                 <option value="">-</option>
                             </select>
                         </td>
-                        <td><input type="text" class="price" readonly style="background: #f5f5f5;"></td>
-                        <td><input type="text" class="total" readonly style="background: #f5f5f5;"></td>
-                        <td><button type="button" onclick="removeRow(this)" style="padding: 4px 8px; font-size: 12px;">✕</button></td>
+                        <td><input type="text" class="price" readonly aria-label="Price Each" style="background: #f5f5f5;"></td>
+                        <td><input type="text" class="total" readonly aria-label="Line Total" style="background: #f5f5f5;"></td>
+                        <td><button type="button" class="remove-btn" aria-label="Remove row" onclick="removeRow(this)" style="padding: 4px 8px; font-size: 12px;">✕</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -718,7 +750,7 @@
         
         <div class="signature-section">
             <div class="form-group">
-                <label for="signature">Authorized Signature:</label>
+                <label for="signature">Authorized Name (Electronic Signature):</label>
                 <input type="text" id="signature" name="signature">
                 <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
                     By typing your name above, you are electronically signing this order form.
@@ -748,9 +780,9 @@
     </div>
     
     <!-- Email Confirmation Modal -->
-    <div id="emailModal" class="modal">
+    <div id="emailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
         <div class="modal-content">
-            <div class="modal-header">📧 Ready to Send Your Order?</div>
+            <div class="modal-header" id="emailModalTitle">📧 Ready to Send Your Order?</div>
             <div class="modal-body">
                 Your order form will open in your email client with all the details filled in. Please follow these steps to complete your order:
                 
@@ -775,9 +807,15 @@
     </div>
     
     <script>
+        // Sanitize user input for use in email body (strip control chars)
+        function sanitize(str) {
+            if (!str) return '';
+            return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '').trim();
+        }
+
         // Set today's date by default
         document.getElementById('date').valueAsDate = new Date();
-        
+
         // Pricing structure
         const PRICING = {
             meristem_tube: { base: 500, per: 'unit' },
@@ -894,6 +932,7 @@
             if (!plantType || !quantity) {
                 row.querySelector('.price').value = '';
                 row.querySelector('.total').value = '';
+                row.querySelector('.total').dataset.rawTotal = '';
                 calculateGrandTotal();
                 return;
             }
@@ -913,9 +952,9 @@
                     break;
                     
                 case 'bin_stock':
-                    // $7.50 per runner, sold in sets of 50
-                    priceEach = PRICING.bin_stock.base * 50;
-                    total = priceEach * (quantity / 50);
+                    // $10.00 per runner, sold in sets of 50
+                    priceEach = PRICING.bin_stock.base;
+                    total = priceEach * quantity;
                     break;
                     
                 case 'white_tag':
@@ -931,17 +970,17 @@
             
             row.querySelector('.price').value = '$' + priceEach.toFixed(2);
             row.querySelector('.total').value = '$' + total.toFixed(2);
-            
+            row.querySelector('.total').dataset.rawTotal = total;
+
             calculateGrandTotal();
         }
-        
+
         function calculateGrandTotal() {
             let subtotal = 0;
             document.querySelectorAll('.order-row').forEach(row => {
-                const totalText = row.querySelector('.total').value;
-                if (totalText) {
-                    const total = parseFloat(totalText.replace('$', '')) || 0;
-                    subtotal += total;
+                const raw = row.querySelector('.total').dataset.rawTotal;
+                if (raw !== undefined && raw !== '') {
+                    subtotal += Number(raw) || 0;
                 }
             });
             
@@ -968,19 +1007,23 @@
             
             newRow.querySelectorAll('input').forEach(input => {
                 input.value = '';
+                if (input.dataset.rawTotal !== undefined) input.dataset.rawTotal = '';
             });
-            
+
             const customInput = newRow.querySelector('.variety-custom');
             customInput.style.display = 'none';
             customInput.value = '';
-            
+
             tbody.appendChild(newRow);
         }
         
         function removeRow(button) {
             const tbody = document.getElementById('orderTableBody');
             if (tbody.rows.length > 1) {
-                button.closest('tr').remove();
+                const row = button.closest('tr');
+                const hasData = row.querySelector('.variety').value || row.querySelector('.plant-type').value;
+                if (hasData && !confirm('Remove this line item?')) return;
+                row.remove();
                 calculateGrandTotal();
             } else {
                 alert('Cannot remove the last row. At least one line item is required.');
@@ -1019,14 +1062,17 @@
         }
         
         function validateRequiredFields() {
-            const requiredFields = {
-                name: document.getElementById('name').value.trim(),
-                company: document.getElementById('company').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                signature: document.getElementById('signature').value.trim()
+            // Clear previous error highlights
+            document.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+
+            const fieldMap = {
+                name: { el: document.getElementById('name'), label: 'Name' },
+                company: { el: document.getElementById('company'), label: 'Company/Ranch' },
+                email: { el: document.getElementById('email'), label: 'Email' },
+                phone: { el: document.getElementById('phone'), label: 'Phone' },
+                signature: { el: document.getElementById('signature'), label: 'Authorized Signature' }
             };
-            
+
             // Check if at least one order item is filled
             let hasOrderItems = false;
             document.querySelectorAll('.order-row').forEach(row => {
@@ -1037,28 +1083,32 @@
                     hasOrderItems = true;
                 }
             });
-            
+
             const missingFields = [];
-            if (!requiredFields.name) missingFields.push('Name');
-            if (!requiredFields.company) missingFields.push('Company/Ranch');
-            if (!requiredFields.email) missingFields.push('Email');
-            if (!requiredFields.phone) missingFields.push('Phone');
-            if (!requiredFields.signature) missingFields.push('Authorized Signature');
+            for (const [key, field] of Object.entries(fieldMap)) {
+                if (!field.el.value.trim()) {
+                    missingFields.push(field.label);
+                    field.el.classList.add('field-error');
+                }
+            }
             if (!hasOrderItems) missingFields.push('At least one order item');
-            
+
             return {
                 isValid: missingFields.length === 0,
                 missingFields: missingFields
             };
         }
-        
+
         function emailForm() {
             // Validate required fields first
             const validation = validateRequiredFields();
-            
+
             if (!validation.isValid) {
                 const missingList = validation.missingFields.join(', ');
                 alert(`Please complete the following required fields before sending your order:\n\n${missingList}\n\nYou can still save as PDF with incomplete information.`);
+                // Scroll to first errored field
+                const firstError = document.querySelector('.field-error');
+                if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             
@@ -1070,21 +1120,22 @@
             document.getElementById('emailModal').style.display = 'none';
         }
         
+        let _emailSending = false;
         function confirmEmailOrder() {
-            // Debug: Check if function is called
-            console.log('confirmEmailOrder called');
+            if (_emailSending) return;
+            _emailSending = true;
             
-            // Gather form data for email body
-            const customerName = document.getElementById('name').value || '[Not filled]';
-            const company = document.getElementById('company').value || '[Not filled]';
-            const email = document.getElementById('email').value || '';
-            const phone = document.getElementById('phone').value || '';
-            const address = document.getElementById('address').value || '';
+            // Gather form data for email body (sanitize user-provided values)
+            const customerName = sanitize(document.getElementById('name').value) || '[Not filled]';
+            const company = sanitize(document.getElementById('company').value) || '[Not filled]';
+            const email = sanitize(document.getElementById('email').value) || '';
+            const phone = sanitize(document.getElementById('phone').value) || '';
+            const address = sanitize(document.getElementById('address').value) || '';
             const grandTotal = document.getElementById('grand-total').textContent;
             const subtotal = document.getElementById('subtotal').textContent;
             const shippingDisplay = document.getElementById('shipping-display').textContent;
-            const notes = document.getElementById('notes').value || '';
-            const signature = document.getElementById('signature').value || '';
+            const notes = sanitize(document.getElementById('notes').value) || '';
+            const signature = sanitize(document.getElementById('signature').value) || '';
             const date = document.getElementById('date').value || '';
             
             // Build order details table
@@ -1151,10 +1202,13 @@
             // Small delay to ensure modal doesn't interfere
             setTimeout(() => {
                 window.location.href = mailtoLink;
-                // Close modal after email opens
                 closeEmailModal();
+                _emailSending = false;
             }, 100);
         }
     </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bdbdcb69524149e9ac1f7f4afd192944"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
