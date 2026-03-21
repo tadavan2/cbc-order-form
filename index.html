@@ -22,6 +22,7 @@
     <!-- Additional Meta Tags -->
     <meta name="description" content="Professional strawberry nursery stock order form for California Berry Cultivars. Clean facility certified plants available for pickup or shipping.">
     <meta name="keywords" content="strawberry plants, nursery stock, California Berry Cultivars, order form, clean facility">
+    <meta name="robots" content="noindex, nofollow">
     <style>
         * {
             margin: 0;
@@ -577,7 +578,7 @@
                 <tbody id="orderTableBody">
                     <tr class="order-row">
                         <td>
-                            <select class="variety">
+                            <select class="variety" onchange="toggleCustomVariety(this)">
                                 <option value="">Select variety...</option>
                                 <option value="Adelanto">Adelanto</option>
                                 <option value="Alturas">Alturas</option>
@@ -588,7 +589,9 @@
                                 <option value="Castaic">Castaic</option>
                                 <option value="Carpinteria">Carpinteria</option>
                                 <option value="Sweet Carolina">Sweet Carolina</option>
+                                <option value="__other__">Other / Experimental</option>
                             </select>
+                            <input type="text" class="variety-custom" placeholder="Enter selection name..." style="display: none; margin-top: 4px;">
                         </td>
                         <td>
                             <select class="plant-type" onchange="updateQuantityOptions(this)">
@@ -783,6 +786,22 @@
             white_tag: { base: 4000, per: 'plot', halfPlot: 3000 }
         };
         
+        function getVarietyName(row) {
+            const select = row.querySelector('.variety');
+            if (select.value === '__other__') {
+                return row.querySelector('.variety-custom').value.trim();
+            }
+            return select.value;
+        }
+        
+        function toggleCustomVariety(select) {
+            const customInput = select.closest('td').querySelector('.variety-custom');
+            customInput.style.display = select.value === '__other__' ? 'block' : 'none';
+            if (select.value !== '__other__') {
+                customInput.value = '';
+            }
+        }
+        
         function toggleShipping() {
             const isShip = document.querySelector('input[name="delivery"]:checked').value === 'ship';
             document.getElementById('shippingSection').style.display = isShip ? 'block' : 'none';
@@ -951,6 +970,10 @@
                 input.value = '';
             });
             
+            const customInput = newRow.querySelector('.variety-custom');
+            customInput.style.display = 'none';
+            customInput.value = '';
+            
             tbody.appendChild(newRow);
         }
         
@@ -1007,7 +1030,7 @@
             // Check if at least one order item is filled
             let hasOrderItems = false;
             document.querySelectorAll('.order-row').forEach(row => {
-                const variety = row.querySelector('.variety').value;
+                const variety = getVarietyName(row);
                 const plantType = row.querySelector('.plant-type').value;
                 const quantity = row.querySelector('.quantity').value;
                 if (variety && plantType && quantity) {
@@ -1067,7 +1090,7 @@
             // Build order details table
             let orderDetails = '';
             document.querySelectorAll('.order-row').forEach(row => {
-                const variety = row.querySelector('.variety').value;
+                const variety = getVarietyName(row);
                 const plantType = row.querySelector('.plant-type').value;
                 const quantity = row.querySelector('.quantity').value;
                 const price = row.querySelector('.price').value;
